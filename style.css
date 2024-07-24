@@ -1,0 +1,168 @@
+
+
+
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  background-color: #f1eada;
+
+}
+
+
+
+.container {
+  margin-top: 200px;
+  text-align: center;
+  width: 100%;
+  max-width: 500px; /* Adjusted to fit side-by-side stopwatches comfortably */
+  padding: 20px;
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  margin: 0;
+  color: #333;
+}
+
+#stopwatches {
+  display: flex;
+  flex-wrap: wrap; /* Allows wrapping to the next line if necessary */
+  gap: 20px; /* Space between stopwatches */
+  justify-content: center; /* Center the stopwatches horizontally */
+}
+
+.stopwatch {
+  flex: 1 1 calc(33.333% - 20px); /* Adjust width to fit up to three stopwatches per row */
+  box-sizing: border-box; /* Ensure padding and border are included in the width */
+  padding: 20px;
+  border: 1px solid #ddd;
+  background-color: #fafafa;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 300px; /* Maximum width for each stopwatch */
+}
+
+.stopwatch h2 {
+  margin: 0 0 10px;
+  color: #333;
+}
+
+#addStopwatchBtn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #000000;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.stopwatch-buttons button {
+  margin: 5px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.stopwatch-buttons button:hover {
+  background-color: #0056b3;
+}
+
+#history {
+  margin-top: 20px;
+  text-align: left;
+  width: 100%;
+  max-height: 300px; /* Restrict height of history section */
+  overflow-y: auto; /* Add scroll if content overflows */
+  border-top: 2px solid #007bff;
+  padding-top: 10px;
+  background: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative; /* Positioning context for button */
+}
+
+#historyList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#historyList li {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+#clearHistoryBtn {
+  position: absolute; /* Position button in the top-right corner */
+  top: 10px;
+  right: 10px;
+  padding: 5px 10px; /* Reduced padding for smaller button */
+  font-size: 14px; /* Smaller font size */
+  border: none;
+  border-radius: 5px;
+  background-color: #dc3545;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#clearHistoryBtn:hover {
+  background-color: #c82333;
+}
+
+
+footer {
+  width: 100%;
+  color: #000000;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background: transparent; 
+  font-size: 14px;
+}
+
+
+
+
+
+
+/* Existing CSS */
+
+/* Notification styles */
+#notification {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    display: none;
+}
+
+
+
+
+
+
+
+
+
