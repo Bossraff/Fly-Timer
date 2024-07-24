@@ -34,7 +34,7 @@ function createStopwatchElement(id, elapsedMilliseconds = 0, status = '') {
 
     stopwatchDiv.innerHTML = `
         <h2>Neuron ${id}</h2>
-        <input type="text" placeholder="Status" id="status${id}" value="${status}" onchange="updateStatus(${id})">
+        <input type="text" placeholder="Coordinates" id="status${id}" value="${status}" onchange="updateStatus(${id})">
         <div class="stopwatch-display" id="display${id}">${formatTime(elapsedMilliseconds)}</div>
         <div class="stopwatch-buttons">
             <button onclick="startStopwatch(${id})">Start</button>
