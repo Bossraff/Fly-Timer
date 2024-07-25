@@ -1,5 +1,6 @@
 let stopwatchCount = 0;
 const maxStopwatches = 5;
+let stopwatches = {};
 
 document.getElementById('addStopwatchBtn').addEventListener('click', addStopwatch);
 
@@ -47,7 +48,10 @@ function createStopwatchElement(id, elapsedMilliseconds = 0, status = '') {
 }
 
 function addStopwatch() {
-    if (stopwatchCount >= maxStopwatches) return;
+    if (stopwatchCount >= maxStopwatches) {
+        showNotification('Maximum number of stopwatches reached', 'warning');
+        return;
+    }
 
     stopwatchCount++;
     createStopwatchElement(stopwatchCount);
@@ -56,14 +60,12 @@ function addStopwatch() {
     saveStopwatches();
 }
 
-let stopwatches = {};
-
 function startStopwatch(id, elapsedMilliseconds = 0, startTime = null) {
     if (!stopwatches[id]) {
         stopwatches[id] = {
             interval: null,
             elapsedMilliseconds: elapsedMilliseconds,
-            startTime: startTime,
+            startTime: startTime || Date.now(),
             status: document.getElementById(`status${id}`).value,
         };
     }
@@ -73,10 +75,7 @@ function startStopwatch(id, elapsedMilliseconds = 0, startTime = null) {
     stopwatches[id].startTime = Date.now() - stopwatches[id].elapsedMilliseconds;
     stopwatches[id].interval = setInterval(() => {
         stopwatches[id].elapsedMilliseconds = Date.now() - stopwatches[id].startTime;
-
         updateDisplay(id, stopwatches[id].elapsedMilliseconds);
-
-        // Save to local storage
         saveStopwatches();
     }, 1000);
 }
@@ -85,16 +84,12 @@ function stopStopwatch(id) {
     if (stopwatches[id] && stopwatches[id].interval) {
         clearInterval(stopwatches[id].interval);
         stopwatches[id].interval = null;
-
-        // Add to history
         addHistoryRecord({
             id,
             elapsedMilliseconds: stopwatches[id].elapsedMilliseconds,
             status: stopwatches[id].status,
             timestamp: new Date().toLocaleString()
         });
-
-        // Save to local storage
         saveStopwatches();
         saveHistory();
     }
@@ -104,8 +99,6 @@ function resetStopwatch(id) {
     stopStopwatch(id);
     stopwatches[id].elapsedMilliseconds = 0;
     updateDisplay(id, 0);
-
-    // Save to local storage
     saveStopwatches();
 }
 
@@ -118,15 +111,12 @@ function formatTime(milliseconds) {
     const hours = Math.floor(totalSeconds / 3600);
     const minutes = Math.floor((totalSeconds % 3600) / 60);
     const seconds = totalSeconds % 60;
-
     return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 }
 
 function updateStatus(id) {
     if (stopwatches[id]) {
         stopwatches[id].status = document.getElementById(`status${id}`).value;
-
-        // Save to local storage
         saveStopwatches();
     }
 }
@@ -158,7 +148,7 @@ function saveHistory() {
     const history = [];
     historyList.childNodes.forEach(node => {
         history.push({
-            id: node.innerText.match(/Stopwatch (\d+)/)[1],
+            id: node.innerText.match(/Neuron (\d+)/)[1],
             status: node.innerText.match(/\((.*?)\)/)[1],
             elapsedMilliseconds: parseTime(node.innerText.match(/stopped at (.*?) on/)[1]),
             timestamp: node.innerText.match(/on (.*)/)[1]
@@ -172,8 +162,6 @@ function parseTime(timeString) {
     return ((parts[0] * 3600) + (parts[1] * 60) + parts[2]) * 1000;
 }
 
-
-
 document.getElementById('clearHistoryBtn').addEventListener('click', clearHistory);
 
 function clearHistory() {
@@ -181,9 +169,6 @@ function clearHistory() {
     historyList.innerHTML = ''; // Clear the list display
     localStorage.removeItem('history'); // Remove history from local storage
 }
-
-
-
 
 // Function to show a notification
 function showNotification(message, type = 'info') {
@@ -218,23 +203,10 @@ function getColorByType(type) {
 
 // Example usage:
 document.getElementById('addStopwatchBtn').addEventListener('click', function() {
-    // Perform your action (e.g., add stopwatch)
-
-    // Show success notification
     showNotification('Stopwatch added successfully', 'success');
 });
 
 // Clear history button example
 document.getElementById('clearHistoryBtn').addEventListener('click', function() {
-    // Perform your action (e.g., clear history)
-
-    // Show warning notification
     showNotification('History cleared', 'warning');
 });
-
-
-
-
-
-
-
